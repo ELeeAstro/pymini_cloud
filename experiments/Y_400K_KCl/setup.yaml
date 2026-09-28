@@ -1,0 +1,34 @@
+mini_cloud:
+
+  restart: False
+  restart_file: 'Y_400K_mc_init.nc'
+  output_file: 'Y_400K_mc_out.nc'
+
+  T_p_grav_Kzz_mu_VMR: 'Y_400K.txt'
+  metallicity_factor: 1
+
+  wavelengths: '../data/wavelengths/R100_JWST.txt '
+
+
+  size_distriution: Mono
+
+  do_opacity: True
+  do_diffusion: True
+  do_settling: True
+
+  inc_cond: True
+  inc_nuc: True
+  inc_coag: True
+  inc_coal: True
+
+  species:
+    - {q_c: KCl, q_v_bot: 1.17e-7, nuc: MCNT, nk: '../data/nk/KCl.txt'}
+
+
+  integrator:
+    t_step: 100
+    n_step: 10000
+    rtol: 1e-4
+    atol: 1e-30
+
+

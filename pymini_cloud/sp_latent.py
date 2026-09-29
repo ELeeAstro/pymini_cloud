@@ -9,7 +9,8 @@ on the active vapour pressure expression in sp_p_vap.py:
 """
 
 import numpy as np
-from data_global import R_gas
+
+R_gas = 8.31446261815324e7  # Ideal gas constant [erg mol^-1 K^-1]
 
 ln10 = np.log(10.0)
 

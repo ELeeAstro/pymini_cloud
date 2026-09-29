@@ -5,7 +5,10 @@ phys_nucleation.py
 '''
 
 import numpy as np
-from data_global import kb, amu, R
+
+kb = 1.380649e-16           # Boltzmann constant [erg K^-1]
+amu = 1.66053906892e-24     # Atomic mass unit [g]
+R = 8.31446261815324e7      # Ideal gas constant [erg mol^-1 K^-1]
 
 third = 1.0/3.0
 twothird = 2.0/3.0

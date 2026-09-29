@@ -2,11 +2,14 @@
 sp_p_vap.py
 ==========
 
-Calclate the vapour pressure [dyne cm-2] for a species
+Calculate the vapour pressure [dyne cm-2] for a species
 """
 
 import numpy as np
-from data_global import bar, atm, pa, mmHg
+
+bar = 1.0e6      # Bar to dyne cm^-2
+atm = 1.01325e6  # Atmosphere to dyne cm^-2
+pa = 10.0        # Pascal to dyne cm^-2
 
 def _p_H2O(T):
   # Murphy & Koop (2005) saturation vapour pressure over ice/liquid [Pa]

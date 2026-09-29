@@ -4,25 +4,52 @@ mini_cloud:
   restart_file: 'Y_400K_mc_init.nc'
   output_file: 'Y_400K_mc_out.nc'
 
-  T_p_grav_Kzz_mu_VMR: 'Y_400K.txt'
-  metallicity_factor: 1
+  T_p_grav_Kzz_mu_VMR: 'Gao_2018_400_425.txt'
+  p_top: 3.0e-3       # bar
+  p_bottom: 300.0     # bar
+  n_layers: 96
+  metallicity_log10: 0.0
+  size_distribution: gamma
 
-  wavelengths: '../data/wavelengths/R100_JWST.txt '
-
-
-  size_distriution: Mono
-
-  do_opacity: True
+  do_opacity: False
   do_diffusion: True
-  do_settling: True
+  # Enable after moment settling velocities are initialized.
+  do_settling: False
 
-  inc_cond: True
-  inc_nuc: True
-  inc_coag: True
-  inc_coal: True
+  vertical_advection:
+    method: muscl_ssprk3    # muscl_ssprk3, muscl_ssprk2, or upwind_trbdf2
+    limiter: koren          # koren or mc; used by MUSCL methods
+    cfl_limit: 0.8          # shared MUSCL substep limit; <= 0.85 for SSPRK3
+    top_boundary: zero_inflow   # zero_inflow or fixed_value
+    # top_value: 0.0        # scalar or one value per settling cloud moment
+    bottom_boundary: outflow    # outflow or zero_flux
+
+  vertical_diffusion:
+    theta: 0.5              # 0.5: Crank-Nicolson; 1.0: backward Euler
+    top_boundary: zero_flux     # zero_flux or fixed_flux
+    # top_flux: 0.0          # g cm^-2 s^-1; positive downward
+    bottom_boundary: fixed_value  # fixed_value, zero_flux, or fixed_flux
+    bottom_value: from_species  # convert species vmr_bottom to mass mixing ratio
+    # bottom_flux: 0.0       # g cm^-2 s^-1; positive downward
+
+  include_condensation: True
+  include_nucleation: True
+  include_coagulation: True
+  include_coalescence: True
 
   species:
-    - {q_c: KCl, q_v_bot: 1.17e-7, nuc: MCNT, nk: '../data/nk/KCl.txt'}
+    - name: KCl
+      vmr_bottom: 1.17e-7
+      condensate_density: 1.99             # g cm^-3
+      condensate_molar_mass: 74.5513       # g mol^-1; test_main.f90 value
+      vapour_molar_mass: 74.5513            # g mol^-1; test_main.f90 value
+      vapour_to_condensate_mass_ratio: 1.0
+      condensation_efficiency: 1.0
+      nucleation_model: MCNT
+      nucleation_efficiency: 1.0
+      nucleation_cluster_size: 5.0
+      seed_radius: 1.0e-7                   # cm
+      optical_constants: '../../data/nk/KCl[s].dat'
 
 
   integrator:
@@ -30,5 +57,3 @@ mini_cloud:
     n_step: 10000
     rtol: 1e-4
     atol: 1e-30
-
-

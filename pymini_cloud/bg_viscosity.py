@@ -7,8 +7,9 @@ viscosity and the Davidson (1993) mixing rule.
 """
 
 import numpy as np
-from data_global import kb, amu
 
+kb = 1.380649e-16          # Boltzmann constant [erg K^-1]
+amu = 1.66053906892e-24    # Atomic mass unit [g]
 
 # Species data: molecular diameter [cm], LJ potential depth [erg], molecular weight [g mol-1]
 sp_data = {

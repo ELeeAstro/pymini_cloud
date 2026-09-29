@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymini_cloud"
+version = "0.1.0"
+description = "1D python version of the mini_cloud microphysical cloud model."
+readme = "README.md"
+requires-python = ">=3.14"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+dependencies = [
+    "numpy",
+    "numba",
+    "PyYAML",
+    "matplotlib",
+    "miepython",
+    "scipy",
+    "netCDF4",
+    "seaborn",
+]
+
+[project.optional-dependencies]
+docs = [
+    "myst-parser",
+    "pydata-sphinx-theme",
+    "sphinx",
+]
+
+[project.urls]
+Repository = "https://github.com/ELeeAstro/pymini_cloud"
+Documentation = "https://eleeastro.github.io/pymini_cloud/"
+
+[tool.setuptools.packages.find]
+include = ["pymini_cloud*"]
